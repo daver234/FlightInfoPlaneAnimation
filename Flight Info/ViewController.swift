@@ -52,7 +52,7 @@ class ViewController: UIViewController {
   func changeFlightDataTo(data: FlightData) {
     
     //populate the UI with the next flight's data
-    summary.text = data.summary
+    // summary.text = data.summary
     flightNr.text = data.flightNr
     gateNr.text = data.gateNr
     departingFrom.text = data.departingFrom
@@ -117,6 +117,19 @@ class ViewController: UIViewController {
     
     planeDepart()
     
+    UIView.animateKeyframesWithDuration(0.5, delay: 0.0, options: [], animations: {
+        UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: {
+            self.summary.center.y -= 50 })
+        
+        UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+            self.summary.center.y += 50
+        })
+        
+        }, completion: nil)
+    
+    delay(seconds: 0.25, completion: {
+        self.summary.text = data.summary
+    })
     // schedule next flight
     delay(seconds: 3.0) {
       self.changeFlightDataTo(data.isTakingOff ? parisToRome : londonToParis)
